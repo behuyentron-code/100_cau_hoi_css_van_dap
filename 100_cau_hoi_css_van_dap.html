@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>100 Câu Hỏi Vấn Đáp CSS - Web Nội Thất</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', sans-serif; background: #f4f6f0; color: #2c2c2c; }
+
+  .header {
+    background: #4e5c34;
+    color: white;
+    padding: 28px 40px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .header p { font-size: 13px; opacity: 0.8; }
+
+  .stats-row {
+    display: flex; gap: 16px; margin-top: 18px; flex-wrap: wrap;
+  }
+  .stat-pill {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 5px 14px; border-radius: 20px;
+    font-size: 12px; font-weight: 600;
+  }
+
+  .toolbar {
+    background: white;
+    padding: 14px 40px;
+    border-bottom: 1px solid #e2e8d8;
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .toolbar input {
+    padding: 8px 14px; border: 1px solid #d6ddc8;
+    border-radius: 8px; font-size: 13px; width: 220px; outline: none;
+  }
+  .toolbar input:focus { border-color: #6b7c4a; }
+  .tag-btn {
+    padding: 6px 14px; border-radius: 20px;
+    border: 1px solid #d6ddc8; background: white;
+    color: #6b7280; font-size: 12px; font-weight: 600;
+    cursor: pointer; transition: .15s;
+  }
+  .tag-btn.active { background: #4e5c34; border-color: #4e5c34; color: white; }
+  .count-label { margin-left: auto; font-size: 12px; color: #9ca3af; }
+
+  .content { padding: 24px 40px 60px; max-width: 900px; margin: 0 auto; }
+
+  .section-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .08em; color: #6b7280;
+    margin: 28px 0 10px; padding-left: 2px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: #e2e8d8; }
+
+  .qcard {
+    background: white; border: 0.5px solid #e2e8d8;
+    border-radius: 12px; margin-bottom: 8px;
+    overflow: hidden; transition: box-shadow .2s;
+  }
+  .qcard:hover { box-shadow: 0 2px 12px rgba(78,92,52,.08); }
+
+  .qhead {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 16px; cursor: pointer;
+  }
+  .qhead:hover { background: #fafbf8; }
+
+  .qnum {
+    font-size: 11px; font-weight: 700; color: #9ca3af;
+    min-width: 24px; margin-top: 1px;
+  }
+  .qtxt { flex: 1; font-size: 13.5px; line-height: 1.5; color: #2c2c2c; }
+  .qtxt code {
+    background: #f0f3ea; color: #4e5c34;
+    padding: 1px 5px; border-radius: 4px;
+    font-size: 12px; font-family: 'Consolas', monospace;
+  }
+
+  .tag {
+    font-size: 10px; font-weight: 600; padding: 3px 9px;
+    border-radius: 20px; white-space: nowrap; flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .t-flex   { background: #e8f5e9; color: #2e7d32; }
+  .t-grid   { background: #e3f2fd; color: #1565c0; }
+  .t-pos    { background: #fff3e0; color: #e65100; }
+  .t-anim   { background: #f3e5f5; color: #6a1b9a; }
+  .t-trap   { background: #fce4ec; color: #ad1457; }
+  .t-pseudo { background: #e0f2f1; color: #00695c; }
+  .t-var    { background: #f1f8e9; color: #33691e; }
+  .t-resp   { background: #fbe9e7; color: #bf360c; }
+  .t-misc   { background: #f5f5f5; color: #555; }
+
+  .arrow { font-size: 12px; color: #9ca3af; transition: transform .2s; margin-top: 3px; flex-shrink: 0; }
+
+  .qbody {
+    display: none;
+    padding: 0 16px 16px 52px;
+    border-top: 0.5px solid #f0f3ea;
+  }
+  .qbody.open { display: block; }
+  .qbody p { font-size: 13px; color: #4b5563; line-height: 1.75; margin-top: 10px; }
+  .qbody code {
+    background: #f0f3ea; color: #4e5c34;
+    padding: 1px 5px; border-radius: 4px;
+    font-size: 12px; font-family: 'Consolas', monospace;
+  }
+  .hint {
+    margin-top: 10px; padding: 9px 13px;
+    background: #f8f9fa; border-left: 3px solid #d6ddc8;
+    border-radius: 0 6px 6px 0;
+    font-size: 12px; color: #6b7280; line-height: 1.6;
+  }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>100 Câu Hỏi Vấn Đáp CSS — Web Nội Thất Decor Luxury</h1>
+  <p>Được rút ra trực tiếp từ style.css, giohang.css, chitietsp.css, admin.css, khuyen_mai.css, lienhe.css</p>
+  <div class="stats-row">
+    <span class="stat-pill">Flexbox &amp; Grid</span>
+    <span class="stat-pill">Position &amp; Z-index</span>
+    <span class="stat-pill">Animation</span>
+    <span class="stat-pill">Pseudo-class / element</span>
+    <span class="stat-pill">Bẫy hay sai</span>
+    <span class="stat-pill">Responsive</span>
+  </div>
+</div>
+
+<div class="toolbar">
+  <input type="text" id="search" placeholder="Tìm kiếm câu hỏi..." oninput="filter()">
+  <button class="tag-btn active" onclick="setTag('all',this)">Tất cả</button>
+  <button class="tag-btn" onclick="setTag('flex',this)">Flexbox</button>
+  <button class="tag-btn" onclick="setTag('grid',this)">Grid</button>
+  <button class="tag-btn" onclick="setTag('pos',this)">Position</button>
+  <button class="tag-btn" onclick="setTag('anim',this)">Animation</button>
+  <button class="tag-btn" onclick="setTag('pseudo',this)">Pseudo</button>
+  <button class="tag-btn" onclick="setTag('resp',this)">Responsive</button>
+  <button class="tag-btn" onclick="setTag('trap',this)">Bẫy</button>
+  <span class="count-label" id="count-label">100 câu</span>
+</div>
+
+<div class="content" id="qlist">
+
+<div class="section-title" data-sec="Phần 1 — Flexbox (style.css, giohang.css, chitietsp.css)">Phần 1 — Flexbox</div>
+
+<div class="qcard" data-tag="flex">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">1</span>
+    <span class="qtxt"><code>.top-menu</code> dùng <code>display: flex; justify-content: space-between</code> — giải thích <code>justify-content</code> và <code>align-items</code> khác nhau như thế nào?</span>
+    <span class="tag t-flex">Flexbox</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>justify-content</code> phân bố items theo trục chính (main axis — ngang khi <code>flex-direction: row</code>). <code>align-items</code> căn chỉnh theo trục phụ (cross axis — dọc). Menu dùng <code>space-between</code> để logo ở trái, auth-group ở phải; dùng <code>align-items: center</code> để chúng đều nằm giữa theo chiều dọc.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="flex">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">2</span>
+    <span class="qtxt"><code>.cart-layout { display: flex; gap: 28px; align-items: flex-start }</code> — tại sao cần <code>align-items: flex-start</code>? Nếu không có thì sao?</span>
+    <span class="tag t-flex">Flexbox</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Mặc định <code>align-items: stretch</code> — cả 2 cột (items và summary) sẽ bị kéo dài bằng nhau. <code>flex-start</code> cho phép mỗi cột cao đúng bằng nội dung của nó, để <code>position: sticky</code> trên order summary mới hoạt động đúng.</p>
+    <div class="hint">Liên quan: nếu align-items là stretch, sticky sẽ không có tác dụng vì phần tử đã bị kéo dài hết cột rồi.</div>
+  </div>
+</div>
+
+<div class="qcard" data-tag="flex">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">3</span>
+    <span class="qtxt"><code>.summary-col { flex: 0 0 320px }</code> — ba giá trị của <code>flex</code> shorthand là gì? Tại sao dùng <code>0 0</code>?</span>
+    <span class="tag t-flex">Flexbox</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>flex: grow shrink basis</code>. <code>flex: 0 0 320px</code> nghĩa là: không co giãn (grow=0), không thu nhỏ (shrink=0), luôn rộng đúng 320px. Sidebar tóm tắt đơn hàng cần kích thước cố định, không bị ảnh hưởng khi danh sách sản phẩm dài hay ngắn.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="flex">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">4</span>
+    <span class="qtxt"><code>.cart-items-col { flex: 1; min-width: 0 }</code> — <code>min-width: 0</code> có tác dụng gì? Không có thì bị lỗi gì?</span>
+    <span class="tag t-flex">Flexbox</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Flex item mặc định có <code>min-width: auto</code> — nghĩa là không bao giờ thu nhỏ hơn nội dung bên trong. Nếu tên sản phẩm dài, cột sẽ tràn ra ngoài container. <code>min-width: 0</code> bỏ giới hạn đó, cho phép cột co lại khi cần.</p>
+    <div class="hint">Đây là bug rất hay gặp khi dùng flex: 1 nhưng cột vẫn bị tràn.</div>
+  </div>
+</div>
+
+<div class="qcard" data-tag="flex">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">5</span>
+    <span class="qtxt"><code>.action-row { display: flex; gap: 12px }</code> với 2 nút đều có <code>flex: 1</code> — kết quả layout là gì?</span>
+    <span class="tag t-flex">Flexbox</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Cả 2 nút "Thêm vào giỏ" và "Mua ngay" sẽ chia đều không gian, mỗi nút chiếm 50% chiều rộng (trừ gap). Dù text dài hay ngắn, 2 nút luôn bằng nhau — giao diện đối xứng.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="flex">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">6</span>
+    <span class="qtxt"><code>.features-row { flex-wrap: wrap }</code> — <code>flex-wrap</code> làm gì? Khi nào nó xuống dòng?</span>
+    <span class="tag t-flex">Flexbox</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Mặc định flex items không xuống dòng, bị ép vào một hàng dù tràn. <code>flex-wrap: wrap</code> cho phép items xuống dòng khi tổng chiều rộng vượt container. Ở trang chi tiết sản phẩm, các feature item (bảo hành, miễn phí vận chuyển...) sẽ tự xuống dòng trên màn hình nhỏ.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="flex">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">7</span>
+    <span class="qtxt"><code>.qty-control { gap: 0; overflow: hidden; border-radius: 10px }</code> — tại sao cần <code>gap: 0</code> và <code>overflow: hidden</code> kết hợp với nhau?</span>
+    <span class="tag t-flex">Flexbox</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Nhóm nút +/- và input được thiết kế liền nhau, không có khoảng cách giữa. <code>gap: 0</code> loại bỏ khoảng hở giữa các flex item. <code>overflow: hidden</code> kết hợp <code>border-radius</code> để bo góc cả nhóm — các góc của button bên trong tự bị cắt theo border-radius của container cha.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="flex">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">8</span>
+    <span class="qtxt"><code>.detail-wrapper { display: flex; gap: 48px; align-items: flex-start }</code> — nếu đổi thành <code>flex-direction: column</code> thì layout bị ảnh hưởng gì?</span>
+    <span class="tag t-flex">Flexbox</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Ảnh và thông tin sản phẩm đang đứng cạnh nhau (hàng ngang). Đổi thành <code>column</code> sẽ xếp ảnh trên, thông tin dưới. Đây thực ra là layout mong muốn trên mobile — nhưng code hiện tại chưa có media query để làm điều này.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="flex">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">9</span>
+    <span class="qtxt"><code>.voucher-card { display: flex; overflow: hidden }</code> — <code>overflow: hidden</code> trên flex container có ảnh hưởng gì đến <code>position: sticky</code> của các flex item bên trong không?</span>
+    <span class="tag t-flex">Flexbox</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Có — đây là bẫy rất phổ biến. <code>overflow: hidden/auto/scroll</code> trên cha phá vỡ <code>position: sticky</code> của con vì nó tạo ra một scroll container mới. Voucher card không có sticky nên không bị ảnh hưởng ở đây, nhưng đây là điều cần nhớ.</p>
+    <div class="hint">Tương tự với sidebar dùng sticky — cha của nó KHÔNG được có overflow hidden.</div>
+  </div>
+</div>
+
+<div class="qcard" data-tag="flex">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">10</span>
+    <span class="qtxt"><code>.coupon-row { display: flex; gap: 8px }</code> với input có <code>flex: 1</code> và button có <code>white-space: nowrap</code> — giải thích cách layout này hoạt động.</span>
+    <span class="tag t-flex">Flexbox</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Input với <code>flex: 1</code> chiếm toàn bộ không gian còn lại. Button có <code>white-space: nowrap</code> ngăn text "Áp dụng" bị xuống dòng dù container hẹp — button giữ kích thước tự nhiên, input co giãn theo phần còn lại. Pattern kinh điển cho input + button inline.</p>
+  </div>
+</div>
+
+<div class="section-title">Phần 2 — CSS Grid</div>
+
+<div class="qcard" data-tag="grid">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">11</span>
+    <span class="qtxt"><code>.cart-header</code> và <code>.cart-item</code> cùng dùng <code>grid-template-columns: 2fr 1fr 1.2fr 0.7fr 36px</code> — tại sao phải giống nhau hoàn toàn?</span>
+    <span class="tag t-grid">Grid</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Để các cột header và data item thẳng hàng với nhau, như một bảng. Nếu 2 cái khác nhau, dữ liệu sẽ lệch khỏi tiêu đề. Đây là pattern phổ biến thay thế <code>&lt;table&gt;</code> bằng CSS Grid để có layout linh hoạt hơn.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="grid">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">12</span>
+    <span class="qtxt"><code>.stats-grid { grid-template-columns: repeat(4, 1fr) }</code> trong admin.css — nếu chỉ có 3 stat card thì ô thứ 4 trông như thế nào?</span>
+    <span class="tag t-grid">Grid</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Ô thứ 4 sẽ trống (empty grid cell). Grid vẫn tạo 4 cột, 3 item điền vào 3 ô đầu, ô cuối bỏ trống. Nếu muốn tự động, dùng <code>repeat(auto-fit, minmax(200px, 1fr))</code> — grid tự điều chỉnh số cột theo số item.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="grid">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">13</span>
+    <span class="qtxt"><code>.promo-grid { grid-template-columns: repeat(3, 1fr); gap: 22px }</code> — <code>gap</code> ở đây áp dụng cho cả hàng và cột hay chỉ một chiều?</span>
+    <span class="tag t-grid">Grid</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>gap: 22px</code> là shorthand áp dụng cho cả <code>row-gap</code> và <code>column-gap</code>. Nếu muốn khác nhau: <code>gap: 16px 22px</code> (row 16, column 22). Còn <code>gap: 22px 0</code> chỉ có khoảng cách giữa hàng, không có giữa cột.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="grid">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">14</span>
+    <span class="qtxt"><code>.form-row { grid-template-columns: 1fr 1fr }</code> trong admin.css — khi màn hình nhỏ code đổi thành <code>1fr</code>. Giải thích logic responsive này.</span>
+    <span class="tag t-grid">Grid</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Trên desktop, 2 field form nằm cạnh nhau (<code>1fr 1fr</code>). Khi <code>max-width: 768px</code>, đổi thành <code>1fr</code> — mỗi field chiếm toàn bộ chiều rộng, xếp dọc. Đây là responsive form pattern chuẩn.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="grid">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">15</span>
+    <span class="qtxt"><code>.empty-state { grid-column: 1 / -1 }</code> — giá trị <code>-1</code> có nghĩa là gì trong grid?</span>
+    <span class="tag t-grid">Grid</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>-1</code> nghĩa là cột cuối cùng của grid. <code>grid-column: 1 / -1</code> = span từ cột 1 đến cột cuối = chiếm toàn bộ chiều rộng grid. Dùng cho empty state vì nó cần chiếm hết 3 cột của promo-grid, không phụ thuộc vào số cột cụ thể.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="grid">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">16</span>
+    <span class="qtxt"><code>.voucher-grid { grid-template-columns: repeat(3, 1fr) }</code> — nếu có 4 voucher, voucher thứ 4 sẽ ở đâu? Cần thêm gì để chúng luôn đều nhau?</span>
+    <span class="tag t-grid">Grid</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Voucher thứ 4 tự động xuống hàng 2, chiếm cột đầu tiên (rộng 1fr). Các ô còn lại trống. Để chúng luôn đều: dùng <code>repeat(auto-fill, minmax(240px, 1fr))</code> — tự điều chỉnh số cột theo chiều rộng màn hình.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="grid">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">17</span>
+    <span class="qtxt"><code>.footer-modern { grid-template-columns: 2fr 1fr 1fr 1fr }</code> — tổng cộng bao nhiêu fr? Cột đầu chiếm bao nhiêu % không gian?</span>
+    <span class="tag t-grid">Grid</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Tổng 5fr. Cột đầu chiếm 2/5 = 40%. Ba cột còn lại mỗi cột 1/5 = 20%. Đơn vị <code>fr</code> chia phần không gian còn lại SAU khi tính gap.</p>
+  </div>
+</div>
+
+<div class="section-title">Phần 3 — Position &amp; Z-index</div>
+
+<div class="qcard" data-tag="pos">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">18</span>
+    <span class="qtxt"><code>.top-menu { position: sticky; top: 0 }</code> — liệt kê 3 điều kiện để <code>sticky</code> KHÔNG hoạt động.</span>
+    <span class="tag t-pos">Position</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>1) Cha có <code>overflow: hidden/auto/scroll</code>. 2) Phần tử cha không đủ chiều cao để scroll (cha thấp hơn phần tử sticky). 3) Quên khai báo <code>top/bottom/left/right</code> — thiếu giá trị này thì sticky hoạt động như relative. Trong code, nav có <code>overflow: visible !important</code> để tránh lỗi 1.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="pos">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">19</span>
+    <span class="qtxt"><code>.order-summary { position: sticky; top: 20px }</code> — tại sao không dùng <code>top: 0</code>?</span>
+    <span class="tag t-pos">Position</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Menu sticky đã chiếm khoảng 85px ở trên cùng. <code>top: 0</code> sẽ đẩy order summary lên sát mép trên viewport, bị menu đè. <code>top: 20px</code> chỉ tạo khoảng đệm nhỏ, nhưng thực ra nên là ít nhất 90-100px để tránh chồng lên menu.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="pos">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">20</span>
+    <span class="qtxt"><code>.badge { position: absolute; top: -5px; right: -5px }</code> — điều kiện gì PHẢI có trên phần tử cha để badge hiển thị đúng vị trí?</span>
+    <span class="tag t-pos">Position</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Cha (<code>.icon-btn</code>) phải có <code>position: relative/absolute/fixed/sticky</code> — bất kỳ giá trị nào khác <code>static</code>. Không có → badge định vị theo tổ tiên gần nhất có position, có thể là body → badge xuất hiện sai chỗ hoàn toàn.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="pos">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">21</span>
+    <span class="qtxt"><code>.modal { position: fixed; z-index: 2000 }</code>, menu <code>z-index: 1000</code>, dropdown <code>z-index: 1000</code> — tại sao modal cần 2000?</span>
+    <span class="tag t-pos">Position</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Modal phải overlay lên MỌI thứ — menu, dropdown, chat sidebar. Nếu modal cũng là 1000, thứ tự hiển thị phụ thuộc vào vị trí trong DOM (ai sau thì trên). Đặt 2000 đảm bảo modal luôn trên tất cả không cần quan tâm DOM order.</p>
+    <div class="hint">Bẫy: z-index chỉ tác dụng khi position không phải static. Modal dùng fixed nên OK.</div>
+  </div>
+</div>
+
+<div class="qcard" data-tag="pos">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">22</span>
+    <span class="qtxt"><code>.dropdown-content { position: absolute; top: 100% }</code> — <code>top: 100%</code> có nghĩa gì? Tại sao không phải <code>top: 40px</code>?</span>
+    <span class="tag t-pos">Position</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>top: 100%</code> = cách từ top của cha 100% chiều cao cha = dropdown bắt đầu ngay bên dưới cha. Nếu dùng <code>40px</code> hardcode, khi cha thay đổi chiều cao thì dropdown bị chồng hoặc có khoảng trống. <code>100%</code> luôn chính xác bất kể chiều cao cha.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="pos">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">23</span>
+    <span class="qtxt"><code>.featured-ribbon { position: absolute; top: 18px; left: 18px }</code> — cha của nó là <code>.featured-deal { position: relative }</code>. Nếu xóa <code>position: relative</code> trên cha thì ribbon đi đâu?</span>
+    <span class="tag t-pos">Position</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Ribbon sẽ định vị theo tổ tiên positioned gần nhất — có thể là <code>.promo-wrap</code> hoặc <code>body</code>. Ribbon sẽ xuất hiện ở góc trên trái của toàn trang thay vì góc card, hoàn toàn sai vị trí.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="pos">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">24</span>
+    <span class="qtxt"><code>.discount-badge { position: absolute; top: 12px; right: 12px }</code> trong khuyen_mai.css — badge này hình tròn, làm sao CSS tạo hình tròn từ một div?</span>
+    <span class="tag t-pos">Position</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>width: 52px; height: 52px; border-radius: 50%</code>. <code>border-radius: 50%</code> trên phần tử vuông (width = height) tạo hình tròn hoàn hảo. Nếu width ≠ height thì ra hình bầu dục (ellipse).</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="pos">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">25</span>
+    <span class="qtxt"><code>.admin-sidebar { position: fixed; height: 100vh }</code> và <code>.admin-content { margin-left: 260px }</code> — tại sao content cần margin-left bằng đúng width của sidebar?</span>
+    <span class="tag t-pos">Position</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Sidebar <code>fixed</code> bị tách khỏi document flow — nó không chiếm không gian. Content sẽ bị sidebar đè lên 260px bên trái. <code>margin-left: 260px</code> đẩy content sang phải đúng bằng chiều rộng sidebar để tránh bị che.</p>
+  </div>
+</div>
+
+<div class="section-title">Phần 4 — Animation &amp; Transition</div>
+
+<div class="qcard" data-tag="anim">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">26</span>
+    <span class="qtxt"><code>@keyframes slideDown { from { transform: translateY(-30px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }</code> — tại sao dùng <code>transform</code> thay vì <code>top/margin-top</code>?</span>
+    <span class="tag t-anim">Animation</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>transform</code> và <code>opacity</code> được xử lý bởi GPU (composite layer), không trigger layout reflow hay repaint. <code>top/margin-top</code> thay đổi sẽ trigger reflow toàn trang → giật lag. Rule ngón tay cái: animate chỉ <code>transform</code> và <code>opacity</code> để smooth nhất.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="anim">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">27</span>
+    <span class="qtxt"><code>.promo-card:hover { transform: translateY(-6px); transition: .3s }</code> — <code>transition: .3s</code> thiếu gì so với khai báo đầy đủ? Điều này ảnh hưởng gì?</span>
+    <span class="tag t-anim">Animation</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Khai báo đầy đủ: <code>transition: property duration timing-function delay</code>. Thiếu property (áp dụng cho all) và timing-function (mặc định ease). Viết <code>.3s</code> shorthand như vậy hợp lệ nhưng không rõ ràng. Nên viết: <code>transition: transform .3s ease, box-shadow .3s ease</code> để chỉ animate những property cần thiết, tránh lãng phí.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="anim">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">28</span>
+    <span class="qtxt"><code>.btn-checkout:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(78,92,52,.3) }</code> — animation này nên đặt <code>transition</code> ở đâu: trên <code>.btn-checkout</code> hay <code>.btn-checkout:hover</code>?</span>
+    <span class="tag t-anim">Animation</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Phải đặt trên <code>.btn-checkout</code> (không phải :hover). Nếu đặt trên :hover, animation chỉ chạy khi hover VÀO (smooth), nhưng khi rời chuột ra sẽ snap ngay về trạng thái ban đầu không có animation. Đặt trên element gốc đảm bảo transition cả 2 chiều vào và ra.</p>
+    <div class="hint">Đây là lỗi cực kỳ phổ biến của sinh viên.</div>
+  </div>
+</div>
+
+<div class="qcard" data-tag="anim">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">29</span>
+    <span class="qtxt"><code>.contact-box:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1) }</code> — tại sao hover card dùng <code>translateY(-5px)</code> chứ không phải <code>margin-top: -5px</code>?</span>
+    <span class="tag t-anim">Animation</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>margin-top: -5px</code> thay đổi layout flow → các phần tử xung quanh bị dịch chuyển (layout shift). <code>translateY(-5px)</code> chỉ di chuyển visual của phần tử, không ảnh hưởng layout flow. Các card bên cạnh không bị xô lệch.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="anim">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">30</span>
+    <span class="qtxt"><code>.hero-cta:hover { transform: translateY(-2px) }</code> và <code>.btn-deal:hover { transform: translateY(-2px) }</code> — cùng style, sao không tạo một class chung?</span>
+    <span class="tag t-anim">Animation</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Đây là vấn đề DRY (Don't Repeat Yourself). Nên tạo utility class <code>.hover-lift:hover { transform: translateY(-2px) }</code> dùng chung. Hoặc dùng CSS custom property. Code hiện tại bị lặp — nếu muốn đổi thành -3px phải sửa nhiều chỗ.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="anim">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">31</span>
+    <span class="qtxt"><code>.promo-hero::before, .promo-hero::after</code> dùng animation hay transform không? Tác dụng thực sự của chúng là gì?</span>
+    <span class="tag t-anim">Animation</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Không dùng animation/transform — chỉ là hình trang trí tĩnh (2 hình tròn mờ). <code>::before</code> là hình tròn lớn góc phải trên, <code>::after</code> là hình tròn nhỏ hơn bên trái dưới. Tạo cảm giác chiều sâu cho banner mà không cần ảnh thêm. Cần <code>content: ''</code> để pseudo-element xuất hiện.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="anim">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">32</span>
+    <span class="qtxt"><code>transition: border-color 0.2s</code> trên input — tại sao chỉ animate <code>border-color</code> chứ không phải <code>all</code>?</span>
+    <span class="tag t-anim">Animation</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>transition: all</code> animate MỌI property thay đổi — kể cả những thứ không muốn như width, height, padding khi browser render. Gây lãng phí performance. Chỉ specify đúng property cần animate là best practice.</p>
+  </div>
+</div>
+
+<div class="section-title">Phần 5 — Pseudo-class &amp; Pseudo-element</div>
+
+<div class="qcard" data-tag="pseudo">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">33</span>
+    <span class="qtxt"><code>.search-container:focus-within</code> — pseudo-class này khác <code>:focus</code> như thế nào? Tại sao không dùng <code>:focus</code> trực tiếp?</span>
+    <span class="tag t-pseudo">Pseudo</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>:focus</code> chỉ áp dụng khi chính phần tử đó được focus. Div không focusable nên <code>:focus</code> trên <code>.search-container</code> (div) không bao giờ active. <code>:focus-within</code> active khi bất kỳ descendant nào được focus — khi user click vào input bên trong.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="pseudo">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">34</span>
+    <span class="qtxt"><code>.spec-table tr:nth-child(even) td { background: #f0f3ea }</code> — <code>nth-child(even)</code> tô màu hàng nào? Viết tương đương bằng <code>nth-child(2n)</code>?</span>
+    <span class="tag t-pseudo">Pseudo</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Tô màu hàng 2, 4, 6, 8... (chẵn). <code>nth-child(even)</code> = <code>nth-child(2n)</code> hoàn toàn tương đương. Ngược lại <code>nth-child(odd)</code> = <code>nth-child(2n+1)</code> tô hàng lẻ. Pattern này gọi là "zebra striping" — giúp dễ đọc bảng dữ liệu dài.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="pseudo">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">35</span>
+    <span class="qtxt"><code>.left-menu ul li::before { content: "›" }</code> — phân biệt <code>::before</code> (2 dấu ::) và <code>:before</code> (1 dấu :) — cái nào đúng chuẩn CSS3?</span>
+    <span class="tag t-pseudo">Pseudo</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>CSS3 chuẩn dùng <code>::</code> (double colon) cho pseudo-element, <code>:</code> (single) cho pseudo-class. Lý do: phân biệt rõ ràng giữa <code>::before/::after</code> (tạo element ảo) và <code>:hover/:focus</code> (trạng thái). Browser vẫn chấp nhận single colon vì lý do backward compat nhưng double là chuẩn.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="pseudo">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">36</span>
+    <span class="qtxt"><code>.section-title::after { content: ''; flex: 1; height: 2px; background: linear-gradient(...) }</code> — tại sao pseudo-element này hoạt động trong flex context?</span>
+    <span class="tag t-pseudo">Pseudo</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>.section-title</code> là flex container (<code>display: flex</code>). Pseudo-element <code>::after</code> trở thành flex item như các con khác. <code>flex: 1</code> khiến nó chiếm toàn bộ không gian còn lại sau tiêu đề và icon — tạo đường kẻ ngang tự động giãn ra.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="pseudo">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">37</span>
+    <span class="qtxt"><code>.filter-tab:hover:not(.active)</code> — giải thích selector kép này. Tại sao cần <code>:not(.active)</code>?</span>
+    <span class="tag t-pseudo">Pseudo</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Áp dụng hover style CHỈ KHI tab chưa active. Nếu không có <code>:not(.active)</code>, hover style sẽ override active style khi user hover lên tab đang active → active tab bị mất style. <code>:not()</code> là pseudo-class loại trừ.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="pseudo">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">38</span>
+    <span class="qtxt"><code>.voucher-left::after { content: ''; position: absolute; right: -8px; border-radius: 50% }</code> — pseudo-element này tạo hình gì? Mục đích thẩm mỹ là gì?</span>
+    <span class="tag t-pseudo">Pseudo</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Tạo hình tròn nhỏ ở mép phải của phần màu tối voucher — giả lập hình "vé xé" (notch). Kết hợp với border dashed của card, tạo cảm giác voucher có thể xé rời. Đây là ví dụ dùng pseudo-element cho trang trí thẩm mỹ thuần túy.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="pseudo">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">39</span>
+    <span class="qtxt"><code>.admin-sidebar li a:hover { background: #4e5c34; color: white }</code> — selector này có độ ưu tiên (specificity) là bao nhiêu?</span>
+    <span class="tag t-pseudo">Pseudo</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Specificity: <code>.admin-sidebar</code>(class=0,1,0) + <code>li</code>(tag=0,0,1) + <code>a</code>(tag=0,0,1) + <code>:hover</code>(pseudo-class=0,1,0) = (0, 2, 2) = 022. Cao hơn style inline thì không thắng, nhưng thắng được các selector ít class hơn.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="pseudo">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">40</span>
+    <span class="qtxt"><code>.tab-btn.active</code> — đây là gì? Khác <code>.tab-btn .active</code> (có dấu cách) như thế nào?</span>
+    <span class="tag t-pseudo">Pseudo</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>.tab-btn.active</code> (không dấu cách) = phần tử có CẢ HAI class "tab-btn" VÀ "active". <code>.tab-btn .active</code> (có dấu cách) = phần tử class "active" là CON của phần tử class "tab-btn". Khác nhau hoàn toàn — lỗi thêm/bỏ dấu cách là bug rất hay gặp.</p>
+  </div>
+</div>
+
+<div class="section-title">Phần 6 — Responsive &amp; Media Query</div>
+
+<div class="qcard" data-tag="resp">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">41</span>
+    <span class="qtxt"><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code> — thẻ này có trong tất cả các trang. Nếu không có thì mobile hiển thị như thế nào?</span>
+    <span class="tag t-resp">Responsive</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Không có viewport meta, mobile browser giả lập màn hình desktop (thường 980px) rồi zoom out để fit. Toàn bộ trang bị thu nhỏ, chữ rất nhỏ, user phải pinch-zoom. Media query <code>max-width: 768px</code> cũng sẽ không trigger vì browser nghĩ màn hình rộng 980px.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="resp">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">42</span>
+    <span class="qtxt">File <code>admin.css</code> có 2 media query: <code>max-width: 768px</code> và <code>max-width: 640px</code>. Đây là mobile-first hay desktop-first? Cách viết nào được khuyến nghị hơn?</span>
+    <span class="tag t-resp">Responsive</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Desktop-first — style mặc định cho desktop, dùng <code>max-width</code> để override khi màn hình nhỏ hơn. Mobile-first dùng <code>min-width</code> — style mặc định cho mobile, thêm feature khi màn hình lớn hơn. Mobile-first được khuyến nghị vì trang web ngày nay phần lớn truy cập từ mobile.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="resp">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">43</span>
+    <span class="qtxt"><code>lienhe.css</code> link bằng đường dẫn <code>css\lienhe.css</code> (dùng backslash <code>\</code>). Đây có phải lỗi không? Trên OS nào sẽ bị lỗi?</span>
+    <span class="tag t-resp">Responsive</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Đây là lỗi! Backslash (<code>\</code>) là path separator của Windows. Trên Linux/Mac server (hầu hết production server), chỉ forward slash (<code>/</code>) mới hợp lệ trong URL path. Code chạy được trên Windows localhost nhưng deploy lên Linux server sẽ 404. Luôn dùng <code>css/lienhe.css</code>.</p>
+    <div class="hint">Đây là bug thực tế rất hay gặp khi dev trên Windows deploy lên Linux.</div>
+  </div>
+</div>
+
+<div class="qcard" data-tag="resp">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">44</span>
+    <span class="qtxt"><code>.hero-banner</code> có <code>@media (max-width: 768px) { height: 200px }</code>. Toàn bộ web chỉ có responsive ở điểm này — liệt kê ít nhất 3 component khác cần thêm responsive.</span>
+    <span class="tag t-resp">Responsive</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>1) <code>.product-grid</code>: 3 cột → 1 cột trên mobile. 2) <code>.cart-layout</code>: flex row → flex column trên mobile. 3) <code>.detail-wrapper</code>: ảnh và info cạnh nhau → xếp dọc. 4) <code>footer-modern</code>: 4 cột grid → 1-2 cột. 5) Menu ngang → hamburger menu.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="resp">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">45</span>
+    <span class="qtxt"><code>.filter-bar input { flex: 1 1 200px }</code> trong admin.css — giải thích <code>1 1 200px</code>. Tại sao basis là 200px?</span>
+    <span class="tag t-resp">Responsive</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>flex: 1 1 200px</code> = grow 1 (có thể lớn hơn), shrink 1 (có thể nhỏ hơn), basis 200px (kích thước khởi đầu). 200px là kích thước tối thiểu hợp lý cho input — đủ rộng để user gõ text. Nếu container đủ rộng, input sẽ grow vượt 200px.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="resp">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">46</span>
+    <span class="qtxt"><code>.filter-bar button { flex: 0 0 auto }</code> — tại sao button dùng <code>0 0 auto</code> thay vì <code>1</code> như input?</span>
+    <span class="tag t-resp">Responsive</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Button "Tìm kiếm" không cần giãn — nó có kích thước cố định vừa với label. <code>flex: 0 0 auto</code> nghĩa là không grow, không shrink, giữ kích thước tự nhiên. Nếu dùng <code>flex: 1</code>, button sẽ rộng bằng input — trông rất xấu.</p>
+  </div>
+</div>
+
+<div class="section-title">Phần 7 — Typography &amp; Text</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">47</span>
+    <span class="qtxt">Toàn bộ project dùng font <code>'Montserrat'</code> từ Google Fonts. Tại sao phải có <code>font-family: 'Montserrat', sans-serif</code> — <code>sans-serif</code> ở sau có tác dụng gì?</span>
+    <span class="tag t-misc">Typography</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>sans-serif</code> là fallback font — nếu Montserrat không load được (mạng chậm, offline, blocked), browser dùng font sans-serif hệ thống (Arial, Helvetica...). Luôn khai báo fallback để tránh browser dùng Times New Roman (serif mặc định) gây ra giao diện xấu.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">48</span>
+    <span class="qtxt"><code>.hero-title { font-size: 50px; font-weight: 900; letter-spacing: -1px }</code> — <code>letter-spacing: -1px</code> có tác dụng gì? Khi nào dùng giá trị âm?</span>
+    <span class="tag t-misc">Typography</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Letter-spacing âm thu hẹp khoảng cách giữa các ký tự. Font size lớn (50px+) thường trông rời rạc — thu hẹp letter-spacing giúp chữ liền lạc, professional hơn. Đây là kỹ thuật typography phổ biến cho heading lớn.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">49</span>
+    <span class="qtxt"><code>.detail-category { text-transform: uppercase; letter-spacing: .08em }</code> — tại sao dùng <code>em</code> cho letter-spacing thay vì <code>px</code>?</span>
+    <span class="tag t-misc">Typography</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>em</code> là đơn vị tương đối so với font-size của chính phần tử. Nếu font-size thay đổi, letter-spacing tự scale theo — chữ lớn hơn có khoảng cách lớn hơn. <code>px</code> cố định: chữ nhỏ có letter-spacing lớn trông kỳ. Best practice cho typography.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">50</span>
+    <span class="qtxt"><code>.item-name { line-height: 1.3 }</code> và <code>.detail-desc-short { line-height: 1.7 }</code> — tại sao heading ngắn hơn line-height so với đoạn văn?</span>
+    <span class="tag t-misc">Typography</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Heading to thường 1 dòng hoặc rất ít dòng — line-height thấp (1.2-1.4) giúp chúng compact, tight. Đoạn văn dài cần line-height cao (1.6-1.8) để mắt dễ theo dõi từ cuối dòng sang đầu dòng tiếp. Đây là nguyên tắc typography cơ bản về readability.</p>
+  </div>
+</div>
+
+<div class="section-title">Phần 8 — Màu sắc &amp; Thiết kế hệ thống</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">51</span>
+    <span class="qtxt">Màu chủ đạo dùng trong toàn project là <code>#4e5c34</code> (olive dark) và <code>#6b7c4a</code> (olive). Tại sao không dùng CSS custom property (<code>--olive: #6b7c4a</code>) cho màu này?</span>
+    <span class="tag t-misc">Màu sắc</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Nếu dùng CSS variable, đổi màu thương hiệu chỉ cần sửa 1 dòng. Hiện tại <code>#6b7c4a</code> xuất hiện hàng chục lần — nếu brand đổi màu phải sửa thủ công khắp nơi, dễ bỏ sót. Đây là điểm yếu về maintainability của codebase.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">52</span>
+    <span class="qtxt"><code>box-shadow: 0 4px 20px rgba(107,124,74,.08)</code> — giải thích 4 giá trị của box-shadow. <code>rgba(107,124,74,.08)</code> là màu gì?</span>
+    <span class="tag t-misc">Màu sắc</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Thứ tự: x-offset, y-offset, blur-radius, spread-radius (tùy chọn), color. Ở đây: 0 ngang, 4px xuống, 20px mờ, không spread. <code>rgba(107,124,74,.08)</code> là màu olive (#6b7c4a) với opacity 8% — bóng đổ màu olive mờ thay vì bóng đen, hòa hợp với tone màu xanh lá của design.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">53</span>
+    <span class="qtxt"><code>background: linear-gradient(135deg, #4e5c34 0%, #6b7c4a 55%, #8a9a62 100%)</code> trong khuyen_mai.css — giải thích <code>135deg</code> và các color stop.</span>
+    <span class="tag t-misc">Màu sắc</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>135deg</code> = hướng diagonal từ trên trái xuống dưới phải (45° là hoàn toàn diagonal, 135° nghiêng ngược). Color stops: màu tối nhất ở 0%, mid-tone ở 55%, màu sáng nhất ở 100% — tạo hiệu ứng sáng dần từ trái sang phải. 3 stops cho gradient mượt mà hơn 2 stops.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">54</span>
+    <span class="qtxt"><code>.voucher-left { background: linear-gradient(180deg, #4e5c34, #6b7c4a) }</code> — <code>180deg</code> nghĩa là gradient theo hướng nào?</span>
+    <span class="tag t-misc">Màu sắc</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>180deg</code> = từ trên xuống dưới (top to bottom). 0deg = bottom to top, 90deg = trái sang phải, 270deg = phải sang trái. Cũng có thể viết <code>to bottom</code> thay cho <code>180deg</code>.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">55</span>
+    <span class="qtxt"><code>lienhe.css</code> dùng màu <code>#f26522</code> (cam) cho button, trong khi toàn bộ web dùng màu olive <code>#4e5c34</code>. Đây có phải vấn đề design consistency không?</span>
+    <span class="tag t-misc">Màu sắc</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Đây là inconsistency — trang liên hệ có style riêng rẽ, không tuân thủ design system của phần còn lại. User chuyển từ trang sản phẩm sang trang liên hệ sẽ thấy màu button khác hẳn. Nên dùng chung class <code>.btn-primary</code> từ style.css.</p>
+    <div class="hint">Đây là bằng chứng nhiều người làm (3 thành viên nhóm) mà không thống nhất design system.</div>
+  </div>
+</div>
+
+<div class="section-title">Phần 9 — Box Model &amp; Sizing</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">56</span>
+    <span class="qtxt"><code>* { box-sizing: border-box }</code> trong admin.css — <code>border-box</code> khác <code>content-box</code> (mặc định) như thế nào? Ví dụ: phần tử <code>width: 200px; padding: 20px</code>.</span>
+    <span class="tag t-misc">Box Model</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>content-box</code>: width=200px là chiều rộng content, tổng chiều rộng = 200 + 20+20 (padding) = 240px. <code>border-box</code>: width=200px là TỔNG chiều rộng kể cả padding, content chỉ còn 160px. <code>border-box</code> dễ tính toán layout hơn nhiều.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">57</span>
+    <span class="qtxt"><code>.detail-image-box { flex: 0 0 420px }</code> — nếu màn hình chỉ rộng 375px (iPhone SE), phần tử này rộng bao nhiêu? Giải pháp?</span>
+    <span class="tag t-misc">Box Model</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Vẫn cố định 420px — rộng hơn cả màn hình 375px → tràn ngang (horizontal overflow). Giải pháp: thêm <code>max-width: 100%</code> hoặc dùng media query để đổi thành <code>flex: 1</code> (chiếm toàn bộ chiều rộng) trên mobile.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">58</span>
+    <span class="qtxt"><code>.cart-qty input { width: 44px }</code> với <code>type="number"</code> — input number có spinner mặc định của browser. Code có ẩn spinner không? Cách ẩn bằng CSS?</span>
+    <span class="tag t-misc">Box Model</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Code không ẩn spinner — vẫn hiển thị mũi tên tăng/giảm của browser bên cạnh số. Cách ẩn: <code>input[type=number]::-webkit-inner-spin-button, ::-webkit-outer-spin-button { -webkit-appearance: none }</code> và <code>input[type=number] { -moz-appearance: textfield }</code> cho Firefox.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">59</span>
+    <span class="qtxt"><code>.btn-addcart:hover { background: #4e5c34;; transform: translateY(-2px) }</code> — có lỗi syntax nào không? Browser xử lý thế nào?</span>
+    <span class="tag t-misc">Box Model</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Dấu chấm phẩy đôi <code>;;</code> — lỗi syntax nhỏ. Browser bỏ qua (ignore) nó, không crash. CSS parser rất tolerant — lỗi nhỏ không làm hỏng toàn bộ rule. Tuy nhiên đây vẫn là code bẩn, nên fix. File code có nhiều chỗ bị lỗi <code>;;</code> như vậy.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">60</span>
+    <span class="qtxt"><code>.qty-control { width: fit-content }</code> — <code>fit-content</code> hoạt động như thế nào? Khác <code>max-content</code> và <code>min-content</code>?</span>
+    <span class="tag t-misc">Box Model</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>fit-content</code>: chiếm rộng vừa đủ nội dung, không vượt quá container. <code>max-content</code>: rộng tối đa để nội dung không xuống dòng (có thể vượt container). <code>min-content</code>: hẹp nhất có thể (wrap nhiều nhất). <code>fit-content</code> = <code>min(max-content, available-space)</code>.</p>
+  </div>
+</div>
+
+<div class="section-title">Phần 10 — Overflow &amp; Visibility</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">61</span>
+    <span class="qtxt"><code>.detail-image-box { overflow: hidden }</code> kết hợp <code>border-radius: 16px</code> — tại sao cần overflow hidden?</span>
+    <span class="tag t-misc">Overflow</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Ảnh bên trong không có <code>border-radius</code>. Nếu container có border-radius nhưng không có <code>overflow: hidden</code>, ảnh sẽ "chọc thủng" các góc tròn — góc ảnh sẽ nhô ra khỏi container bo tròn. <code>overflow: hidden</code> cắt bỏ phần ảnh vượt ra ngoài border-radius.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">62</span>
+    <span class="qtxt"><code>nav style="overflow: visible !important"</code> — tại sao phải dùng <code>!important</code> ở đây? Cách nào tốt hơn?</span>
+    <span class="tag t-trap">Bẫy</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Có rule nào đó (CSS hoặc framework) đang set overflow trên nav, khiến dropdown bị cắt. <code>!important</code> là "hack" để override. Cách tốt hơn: tìm ra rule nào đang gây overflow đó rồi xóa/sửa đúng source — tránh !important vì nó làm cascade khó debug.</p>
+    <div class="hint">!important = dấu hiệu của code đang "chữa ngọn" thay vì "chữa gốc".</div>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">63</span>
+    <span class="qtxt"><code>.admin-sidebar { overflow-y: auto }</code> — tại sao sidebar cần <code>overflow-y: auto</code> mà không phải <code>scroll</code>?</span>
+    <span class="tag t-misc">Overflow</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>scroll</code>: luôn hiển thị scrollbar dù nội dung ngắn — trông xấu khi menu chỉ có vài item. <code>auto</code>: scrollbar chỉ xuất hiện KHI CẦN — nội dung dài hơn container. UX tốt hơn và nhìn sạch hơn khi menu không đủ dài để scroll.</p>
+  </div>
+</div>
+
+<div class="section-title">Phần 11 — Các câu hỏi bẫy &amp; hay sai nhất</div>
+
+<div class="qcard" data-tag="trap">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">64</span>
+    <span class="qtxt"><code>.footer { margin-left: 1000px }</code> — giảng viên thấy dòng này trong code. Bạn giải thích như thế nào?</span>
+    <span class="tag t-trap">Bẫy</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Hardcode pixel tuyệt đối — bị lỗi trên màn hình không đúng 1440px. Logo có thể tràn ra ngoài màn hình nhỏ hơn hoặc không đến cạnh phải trên màn hình lớn hơn. Cách đúng: <code>margin-left: auto</code> trong flex container để đẩy logo về phải dynamically.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="trap">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">65</span>
+    <span class="qtxt"><code>.left-menu ul li:hover { font-size: 16px }</code> — vấn đề UX/layout gì xảy ra khi hover?</span>
+    <span class="tag t-trap">Bẫy</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Font-size thay đổi → element cao hơn → các item dưới bị đẩy xuống → layout shift. Các item xung quanh "nhảy" — người dùng mất cảm giác ổn định. Giải pháp không gây layout shift: <code>font-weight: bold</code> (ít thay đổi kích thước hơn) hoặc <code>transform: scale(1.05)</code>.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="trap">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">66</span>
+    <span class="qtxt">Cả login lẫn register form đều <code>action="login" method="post"</code>. Phân biệt bằng <code>name="action" value="login/register"</code>. Bạn giải thích cơ chế này với giảng viên.</span>
+    <span class="tag t-trap">Bẫy</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Cả 2 form gửi đến cùng 1 Servlet (<code>LoginServlet</code>). Servlet đọc <code>request.getParameter("action")</code> để biết là "login" hay "register". Không cần 2 Servlet riêng. Button submit có <code>name="action"</code> — giá trị của button được submit được gửi kèm form.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="trap">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">67</span>
+    <span class="qtxt"><code>.tab-btn { border-bottom: 3px solid transparent; margin-bottom: -2px }</code> — trick gì đang xảy ra với margin âm này?</span>
+    <span class="tag t-trap">Bẫy</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Tab nav có <code>border-bottom: 2px solid #d6ddc8</code>. Tab button có <code>border-bottom: 3px solid</code> và <code>margin-bottom: -2px</code>. Khi active, border-bottom màu olive đè lên border nav — tạo hiệu ứng tab "liền" với content bên dưới. Technique kinh điển cho tab component.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="trap">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">68</span>
+    <span class="qtxt"><code>.modal { display: none; position: fixed; ... display: flex }</code> — modal dùng <code>display: flex</code> chứ không phải <code>display: block</code>. Lý do?</span>
+    <span class="tag t-trap">Bẫy</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Flex giúp căn giữa <code>.modal-box</code> cả ngang lẫn dọc bằng <code>justify-content: center; align-items: center</code>. Nếu dùng <code>block</code>, cần trick khác như <code>margin: auto</code> hoặc <code>top: 50%; transform: translate(-50%, -50%)</code> phức tạp hơn.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="trap">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">69</span>
+    <span class="qtxt"><code>.btn-submit { display: block; margin: 0 auto }</code> — tại sao cần <code>display: block</code> để <code>margin: 0 auto</code> căn giữa hoạt động?</span>
+    <span class="tag t-trap">Bẫy</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>margin: 0 auto</code> chỉ hoạt động trên block-level element có chiều rộng xác định. Button mặc định là <code>inline-block</code>. <code>display: block</code> khiến nó chiếm full width, sau đó <code>margin: auto</code> chia đều khoảng trống 2 bên để căn giữa.</p>
+    <div class="hint">Lỗi kinh điển: quên display block rồi hỏi tại sao margin auto không căn giữa.</div>
+  </div>
+</div>
+
+<div class="qcard" data-tag="trap">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">70</span>
+    <span class="qtxt"><code>.detail-image-box img { display: block }</code> — tại sao ảnh cần <code>display: block</code>? Nếu không có thì bị lỗi gì?</span>
+    <span class="tag t-trap">Bẫy</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Ảnh mặc định là <code>inline</code> — inline elements có "baseline" nên có khoảng trắng nhỏ (3-4px) phía dưới. Container sẽ cao hơn ảnh vài px tạo khoảng trắng bí ẩn bên dưới ảnh. <code>display: block</code> loại bỏ baseline gap này.</p>
+    <div class="hint">Bẫy hay hỏi trong vấn đáp — "tại sao container cao hơn ảnh?".</div>
+  </div>
+</div>
+
+<div class="qcard" data-tag="trap">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">71</span>
+    <span class="qtxt"><code>.promo-hero { position: relative; overflow: hidden }</code> — <code>overflow: hidden</code> ở đây phục vụ mục đích gì? Không phải để ẩn nội dung?</span>
+    <span class="tag t-trap">Bẫy</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Để cắt các hình tròn trang trí (<code>::before</code>, <code>::after</code>) không tràn ra ngoài hero banner. Các hình tròn to (360px) kết hợp với <code>position: absolute; top: -90px; right: -90px</code> sẽ vượt ra ngoài container nếu không có overflow hidden.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="trap">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">72</span>
+    <span class="qtxt"><code>.cd-box { backdrop-filter: blur(6px) }</code> — <code>backdrop-filter</code> có browser support tốt không? Cần fallback gì?</span>
+    <span class="tag t-trap">Bẫy</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Hỗ trợ tốt trên Chrome, Safari nhưng Firefox cần flag. Cần fallback: đặt background màu solid có opacity trước, rồi override bằng backdrop-filter. Ví dụ: <code>background: rgba(255,255,255,0.2); @supports (backdrop-filter: blur(1px)) { background: transparent; backdrop-filter: blur(6px); }</code>.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="trap">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">73</span>
+    <span class="qtxt"><code>.voucher-code { font-family: monospace }</code> — tại sao mã voucher (GIAM10, DECOR20) dùng monospace font?</span>
+    <span class="tag t-trap">Bẫy</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Monospace: mỗi ký tự rộng bằng nhau → dễ đọc và so sánh code. "GIAM10" và "GIAM1O" (số 0 vs chữ O) dễ phân biệt hơn. Convention dùng monospace cho code, password, serial number, mã coupon từ thời terminal.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="trap">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">74</span>
+    <span class="qtxt">Code có <code>border: 2px dashed #d6ddc8</code> trên voucher card và <code>border: 1px solid #e2e8d8</code> trên product card. Tại sao 2 loại border khác nhau?</span>
+    <span class="tag t-trap">Bẫy</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Design có chủ ý — voucher dùng dashed để gợi nhớ hình vé/coupon vật lý có đường cắt lỗ chấm. Product card dùng solid là border thông thường. Sử dụng visual metaphor trong thiết kế để người dùng liên tưởng đến đối tượng thực tế.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="trap">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">75</span>
+    <span class="qtxt"><code>.form-box textarea { resize: none }</code> trong lienhe.css — nếu không có <code>resize: none</code> thì user làm được gì? Tại sao đôi khi nên cho phép resize?</span>
+    <span class="tag t-trap">Bẫy</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Không có → user có thể kéo góc dưới phải để thay đổi kích thước textarea, phá vỡ layout. <code>resize: none</code> ngăn điều này. Tuy nhiên <code>resize: vertical</code> (chỉ cho phép kéo dọc) là UX tốt hơn — user có thể xem được toàn bộ nội dung đã gõ mà không làm hỏng layout ngang.</p>
+  </div>
+</div>
+
+<div class="section-title">Phần 12 — Câu hỏi về Object-fit, Background &amp; Image</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">76</span>
+    <span class="qtxt"><code>.item-img img { object-fit: cover }</code> với container <code>72x72px</code> nhưng ảnh gốc có thể là <code>500x700px</code>. Phần nào của ảnh được giữ lại?</span>
+    <span class="tag t-misc">Image</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Cover scale ảnh đủ để phủ kín container, cắt phần thừa. Mặc định <code>object-position: 50% 50%</code> (center) — giữ phần giữa ảnh. Ảnh 500x700 → scale down để chiều ngắn (500px) phủ 72px → tỉ lệ 0.144 → chiều dài 700*0.144=101px → cắt 2 đầu dư 29px mỗi phía.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">77</span>
+    <span class="qtxt"><code>.featured-deal .deal-img { width: 44%; height: 320px; object-fit: cover }</code> — <code>44%</code> là tương đối so với gì?</span>
+    <span class="tag t-misc">Image</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Tương đối so với chiều rộng của flex container cha (<code>.featured-deal</code>). Phần tử flex với <code>%</code> tính theo container. Ảnh chiếm 44% width card, phần còn lại (khoảng 56%) là deal-body text. Tỷ lệ 44/56 gần với tỷ lệ vàng.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">78</span>
+    <span class="qtxt"><code>.hero-banner { background-image: url(...); background-size: cover; background-position: center }</code> — phân biệt background-size <code>cover</code> vs <code>contain</code>.</span>
+    <span class="tag t-misc">Image</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>cover</code>: scale ảnh để phủ kín container, cắt phần thừa — không có khoảng trắng nhưng ảnh có thể bị crop. <code>contain</code>: scale ảnh để toàn bộ ảnh vừa vào container — không cắt nhưng có thể có khoảng trắng 2 bên (letterbox). Banner dùng cover để tránh khoảng trắng xấu.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">79</span>
+    <span class="qtxt"><code>.promo-card-img { width: 100%; height: 210px; object-fit: cover; display: block }</code> — tại sao cần <code>display: block</code> trên thẻ <code>&lt;img&gt;</code>?</span>
+    <span class="tag t-misc">Image</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Giống câu 70 — ảnh là inline element có baseline gap phía dưới. <code>display: block</code> loại bỏ khoảng trắng bí ẩn dưới ảnh. Nếu không có, card sẽ có thêm 3-4px trống phía dưới ảnh làm mất sạch thiết kế.</p>
+  </div>
+</div>
+
+<div class="section-title">Phần 13 — Specificity &amp; Cascade</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">80</span>
+    <span class="qtxt">Style inline <code>style="color: white"</code> trên nhiều thẻ HTML — specificity của inline style là bao nhiêu? Chỉ có gì override được nó?</span>
+    <span class="tag t-misc">Specificity</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Inline style có specificity (1,0,0,0) — cao hơn mọi selector CSS ngoại trừ <code>!important</code>. Chỉ <code>!important</code> trong stylesheet override được. Đây là lý do không nên dùng inline style nhiều — rất khó override từ CSS file.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">81</span>
+    <span class="qtxt">Breadcrumb được định nghĩa trong cả <code>giohang.css</code> và <code>chitietsp.css</code> với style gần giống nhau. Cái nào sẽ thắng nếu cả 2 file được load cùng lúc?</span>
+    <span class="tag t-misc">Specificity</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Specificity của 2 rule bằng nhau → CSS cascade áp dụng: file được link SAU thắng (last rule wins). Thứ tự <code>&lt;link&gt;</code> trong HTML quyết định. Đây là ví dụ về CSS duplication — nên đặt breadcrumb style chung vào style.css thay vì lặp.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">82</span>
+    <span class="qtxt"><code>table { border-collapse: collapse }</code> trong admin.css — <code>border-collapse</code> có 2 giá trị, giải thích sự khác nhau và tại sao cần <code>collapse</code>?</span>
+    <span class="tag t-misc">Specificity</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>separate</code> (mặc định): mỗi cell có border riêng → giữa 2 cell có 2 border sát nhau trông dày và xấu. <code>collapse</code>: cells chia sẻ border → border giữa 2 cell chỉ có 1 đường. Table data trông clean hơn nhiều với collapse.</p>
+  </div>
+</div>
+
+<div class="section-title">Phần 14 — Câu hỏi tổng hợp / nâng cao</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">83</span>
+    <span class="qtxt"><code>.hero-eyebrow { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3) }</code> — kỹ thuật glassmorphism nhẹ này có những property gì? Tại sao dùng rgba thay vì màu solid?</span>
+    <span class="tag t-misc">Nâng cao</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Glassmorphism cơ bản: background semi-transparent, border semi-transparent, thường thêm backdrop-filter blur. Dùng rgba thay solid vì nền gradient phía sau cần "xuyên qua" — màu solid sẽ che hẳn gradient. rgba cho phép gradient hiển thị qua background, tạo cảm giác chiều sâu.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">84</span>
+    <span class="qtxt"><code>.admin-content form input:focus { box-shadow: 0 0 0 3px rgba(78,92,52,0.1) }</code> — kỹ thuật focus ring này hoạt động thế nào? Tại sao không dùng <code>border-width</code>?</span>
+    <span class="tag t-misc">Nâng cao</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>box-shadow: 0 0 0 3px</code> với blur=0 và spread=3px = một ring bằng phẳng bao quanh element, không làm thay đổi kích thước element (không trigger layout reflow). Đổi border-width sẽ thay đổi kích thước element → layout shift. Đây là modern focus ring pattern.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">85</span>
+    <span class="qtxt"><code>.hero-cta { border-radius: 50px }</code> — <code>50px</code> trên một button không phải hình tròn tạo ra hình gì? Khác <code>border-radius: 50%</code> thế nào?</span>
+    <span class="tag t-misc">Nâng cao</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>50px</code> trên button cao ~50px tạo hình "pill" (viên thuốc) — góc bo tròn hoàn toàn ở 2 đầu. Miễn là border-radius >= height/2 thì sẽ tạo pill shape bất kể button rộng hay hẹp. <code>50%</code> trên rectangle tạo ellipse (bầu dục), khác pill.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">86</span>
+    <span class="qtxt"><code>.new-sidebar { align-self: flex-start }</code> — <code>align-self</code> khác <code>align-items</code> ở điểm gì?</span>
+    <span class="tag t-flex">Flexbox</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>align-items</code>: đặt trên flex container, áp dụng cho TẤT CẢ flex items. <code>align-self</code>: đặt trên từng flex item riêng lẻ, override <code>align-items</code> cho item đó. Sidebar dùng <code>align-self: flex-start</code> để chỉ riêng sidebar được cao vừa nội dung, dù container có align-items khác.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">87</span>
+    <span class="qtxt"><code>.stat-num { display: block }</code> trên <code>&lt;span&gt;</code> — tại sao cần <code>display: block</code> trên span?</span>
+    <span class="tag t-misc">Nâng cao</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Span mặc định là inline — inline elements không xuống dòng. <code>display: block</code> cho phép <code>.stat-num</code> và <code>.stat-label</code> xếp dọc (mỗi cái 1 dòng riêng) thay vì nằm ngang cùng nhau. Dùng <code>display: block</code> trên inline element là pattern rất phổ biến.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">88</span>
+    <span class="qtxt"><code>.pay-badge { border: 1px solid #e2e8d8; color: #6b7280 }</code> — không có background color, tại sao badge vẫn có màu nền?</span>
+    <span class="tag t-misc">Nâng cao</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Background của <code>.payment-row { background: #f8f9fa }</code> là cha. Badge không có background riêng → trong suốt → kế thừa màu nền của cha (#f8f9fa). CSS background không được kế thừa theo cascade thông thường nhưng vì badge transparent nên nhìn xuyên qua thấy màu nền cha.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="grid">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">89</span>
+    <span class="qtxt"><code>.cart-header span:nth-child(2), span:nth-child(3), span:nth-child(4) { text-align: center }</code> — selector này có bug không?</span>
+    <span class="tag t-trap">Bẫy</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Có bug tiềm ẩn: <code>span:nth-child(3)</code> sau dấu phẩy là selector ĐỘC LẬP — nghĩa là TẤT CẢ span là con thứ 3 trong trang, không phải chỉ trong .cart-header. Đúng phải viết: <code>.cart-header span:nth-child(2), .cart-header span:nth-child(3), .cart-header span:nth-child(4)</code>.</p>
+    <div class="hint">Lỗi selector sau dấu phẩy rất hay gặp, giảng viên thích hỏi về cái này.</div>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">90</span>
+    <span class="qtxt"><code>.admin-wrapper { display: flex; min-height: 100vh }</code> — tại sao dùng <code>min-height</code> thay vì <code>height: 100vh</code>?</span>
+    <span class="tag t-misc">Nâng cao</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>height: 100vh</code> cố định chiều cao đúng viewport — nếu content dài hơn viewport sẽ bị overflow (cut off). <code>min-height: 100vh</code> đảm bảo ít nhất cao bằng viewport, nhưng có thể cao hơn nếu content nhiều — trang tự scroll đúng cách.</p>
+  </div>
+</div>
+
+<div class="section-title">Phần 15 — 10 câu cuối: Kiến thức mở rộng</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">91</span>
+    <span class="qtxt">Tại sao mỗi trang JSP link cả <code>style.css</code> và file CSS riêng (giohang.css, chitietsp.css...)? Không gộp vào 1 file được không?</span>
+    <span class="tag t-misc">Kiến trúc</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Tách file theo trang: trang giỏ hàng chỉ load giohang.css, trang chi tiết load chitietsp.css — giảm lượng CSS không cần thiết. Tuy nhiên 1 file lớn có thể cache tốt hơn. Trong production thường dùng CSS bundler (webpack) gộp và minify. Cách làm trong project là chấp nhận được cho project học.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">92</span>
+    <span class="qtxt"><code>font-weight: 900</code> và <code>font-weight: 800</code> đều được dùng. Montserrat có hỗ trợ những weight này không? Nếu không thì browser làm gì?</span>
+    <span class="tag t-misc">Typography</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Montserrat được load với <code>wght@400;500;600;700;800;900</code> trong Google Fonts URL — có đủ cả 900. Nếu weight không có, browser dùng font-weight gần nhất có trong font. Ví dụ: nếu chỉ có 400 và 700, weight 900 sẽ dùng 700.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">93</span>
+    <span class="qtxt">Code load Font Awesome từ CDN: <code>cdnjs.cloudflare.com</code>. Nếu user offline thì icon hiển thị thế nào? Cách khắc phục?</span>
+    <span class="tag t-misc">Kiến trúc</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Icon sẽ không hiển thị — chỉ thấy ký tự lạ hoặc khoảng trống. Khắc phục: download Font Awesome về serve locally (trong thư mục web/css hoặc web/fonts). Trong môi trường production hoặc khi demo không có internet, đây là vấn đề nghiêm trọng.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="resp">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">94</span>
+    <span class="qtxt"><code>.promo-hero { padding: 56px 50px }</code> — padding lớn như vậy trên mobile (320px width) chiếm bao nhiêu % chiều rộng? Có vấn đề gì không?</span>
+    <span class="tag t-resp">Responsive</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>Padding ngang 50px * 2 = 100px chiếm 100/320 = 31% chỉ để làm padding. Content chỉ còn 220px — rất chật. Nên dùng responsive padding: <code>padding: 30px 20px</code> trên mobile qua media query. Hoặc dùng <code>padding: 56px clamp(20px, 5vw, 50px)</code>.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">95</span>
+    <span class="qtxt">Nhiều chỗ trong code dùng màu text <code>#6b7280</code> — đây là màu gì trong hệ màu nào? Cách nào giúp maintain màu tốt hơn?</span>
+    <span class="tag t-misc">Màu sắc</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>#6b7280</code> là gray-500 trong Tailwind CSS color system — màu xám trung bình cho text phụ. Dùng nhiều chỗ nhưng không có CSS variable → khó maintain. Best practice: khai báo <code>:root { --text-muted: #6b7280; --text-dark: #2c2c2c; }</code> rồi dùng <code>var(--text-muted)</code> khắp nơi.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="anim">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">96</span>
+    <span class="qtxt"><code>animation: slideDown 0.25s ease</code> — giải thích <code>ease</code>. Còn những timing function nào khác? Cái nào thường dùng nhất?</span>
+    <span class="tag t-anim">Animation</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>ease</code>: bắt đầu chậm, tăng tốc, rồi chậm lại (tự nhiên nhất). Các giá trị khác: <code>linear</code> (đều), <code>ease-in</code> (bắt đầu chậm), <code>ease-out</code> (kết thúc chậm), <code>ease-in-out</code> (cả 2 đầu chậm), <code>cubic-bezier(x1,y1,x2,y2)</code> (tùy chỉnh). <code>ease</code> và <code>ease-out</code> dùng nhiều nhất vì tự nhiên nhất.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="trap">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">97</span>
+    <span class="qtxt">Trong admin.css có cả <code>.btn</code> generic và <code>.admin-content form .btn</code> specific. Khi cả 2 áp dụng lên cùng 1 element thì cái nào thắng?</span>
+    <span class="tag t-trap">Bẫy</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>.admin-content form .btn</code> có specificity (0,3,0) — 3 class selectors. <code>.btn</code> đơn giản chỉ có (0,1,0). Rule phức tạp hơn thắng, bất kể thứ tự trong file. Đây là lý do cần hiểu specificity, không chỉ đặt style ở cuối file để "override".</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">98</span>
+    <span class="qtxt"><code>text-decoration: line-through</code> trên <code>.deal-price-old</code> — ngoài line-through, còn những giá trị nào khác của text-decoration?</span>
+    <span class="tag t-misc">Typography</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><code>none</code>, <code>underline</code>, <code>overline</code>, <code>line-through</code>. Có thể kết hợp: <code>underline overline</code>. CSS3 mở rộng thêm: <code>text-decoration-color</code>, <code>text-decoration-style</code> (solid/dashed/dotted/wavy), <code>text-decoration-thickness</code>. Ví dụ: <code>text-decoration: underline wavy red</code>.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="misc">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">99</span>
+    <span class="qtxt">Nhiều element dùng <code>cursor: pointer</code>. Khi nào NÊN và KHÔNG NÊN dùng cursor pointer?</span>
+    <span class="tag t-misc">UX/CSS</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p>NÊN: tất cả element clickable không phải link/button mặc định — div, span, icon có onclick. KHÔNG NÊN: input text (nên là cursor text/default), disabled elements (cursor: not-allowed), non-clickable decorative elements. Code đặt <code>cursor: pointer</code> trên button là redundant (button đã có pointer mặc định) nhưng không sai.</p>
+  </div>
+</div>
+
+<div class="qcard" data-tag="trap">
+  <div class="qhead" onclick="tog(this)">
+    <span class="qnum">100</span>
+    <span class="qtxt">Nhìn tổng thể, điểm mạnh và điểm yếu lớn nhất về CSS trong toàn bộ project của nhóm bạn là gì?</span>
+    <span class="tag t-trap">Tổng hợp</span><span class="arrow">▸</span>
+  </div>
+  <div class="qbody">
+    <p><strong>Điểm mạnh:</strong> Design system màu olive nhất quán, sử dụng flexbox/grid đúng cách, animation mượt với transform/opacity, sticky positioning hợp lý, có breadcrumb và breadcrumb hover states. <strong>Điểm yếu:</strong> Thiếu responsive trên phần lớn component, không dùng CSS custom property, duplicate code giữa các file, vài hardcode pixel bất hợp lý, inconsistency giữa lienhe.css và phần còn lại.</p>
+    <div class="hint">Trả lời câu này thành thật và phân tích rõ ràng sẽ gây ấn tượng tốt hơn là chỉ khen code của mình.</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+let currentTag = 'all';
+
+function tog(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('.arrow');
+  const open = body.classList.toggle('open');
+  arrow.style.transform = open ? 'rotate(90deg)' : '';
+}
+
+function setTag(tag, btn) {
+  currentTag = tag;
+  document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filter();
+}
+
+function filter() {
+  const q = document.getElementById('search').value.toLowerCase();
+  let vis = 0;
+  document.querySelectorAll('.qcard').forEach(card => {
+    const tagMatch = currentTag === 'all' || card.dataset.tag === currentTag;
+    const textMatch = !q || card.textContent.toLowerCase().includes(q);
+    const show = tagMatch && textMatch;
+    card.classList.toggle('hidden', !show);
+    if (show) vis++;
+  });
+  document.getElementById('count-label').textContent = vis + ' câu';
+  document.querySelectorAll('[data-sec]').forEach(sec => sec.style.display = '');
+}
+</script>
+</body>
+</html>
